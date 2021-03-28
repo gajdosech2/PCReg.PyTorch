@@ -5,6 +5,7 @@ __pycache__/
 test*.py
 checkpoints/
 data/ILSVRC2012_img_val
+dataset/
 model/.DS_Store
 .DS_Store
 tmp.py

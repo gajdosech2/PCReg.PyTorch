@@ -1,0 +1,2 @@
+python modelnet40_evaluate.py --root dataset/modelnet40_ply_hdf5_2048 --checkpoint work_dirs/models/checkpoints/test_min_loss.pth  --show
+python custom_evaluate.py --root dataset/CustomDataSimple --infer_npts 8192 --checkpoint work_dirs/models/checkpoints/test_min_loss.pth --show

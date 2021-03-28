@@ -41,7 +41,7 @@ def config_params():
                         help='iteration nums in one model forward')
     parser.add_argument('--lr', type=float, default=0.0001,
                         help='initial learning rate')
-    parser.add_argument('--milestones', type=list, default=[50, 250],
+    parser.add_argument('--milestones', type=list, default=[50, 100, 150],
                         help='lr decays when epoch in milstones')
     parser.add_argument('--gamma', type=float, default=0.1,
                         help='lr decays to gamma * lr every decay epoch')
