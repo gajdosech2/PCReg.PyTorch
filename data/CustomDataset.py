@@ -15,13 +15,15 @@ class CustomData(Dataset):
         dirname = 'train_data' if train else 'val_data'
         path = os.path.join(root, dirname)
         self.train = train
-        self.files = [os.path.join(path, item) for item in sorted(os.listdir(path)) if ".pcd" in item]
+        self.files = [os.path.join(path, item) 
+                      for item in sorted(os.listdir(path)) 
+                      if '.pcd' in item and 'p.pcd' not in item]
         self.npts = npts
         
     def read_transform(self, transform_file):
         params = []
         with open(transform_file) as read_file:
-            params = read_file.readline().strip().split(" ")
+            params = read_file.readline().strip().split(' ')
     
         R = np.eye(3, dtype=np.float32)
         
@@ -42,13 +44,14 @@ class CustomData(Dataset):
 
     def __getitem__(self, item):
         file = self.files[item]
-        R, t = self.read_transform(file[:-4] + "_bin_transform.txt")
+        name = file[:-4]
+        R, t = self.read_transform(file[:-4] + '_remaining_transform.txt')
         
         ref_cloud = readpcd(file, rtype='npy')
         ref_cloud = random_select_points(ref_cloud, m=self.npts)
 
-        src_cloud = readpcd("dataset/bin.pcd", rtype='npy')
-        src_cloud = random_select_points(src_cloud, m=8192)
+        src_cloud = readpcd(file[:-4] + 'p.pcd', rtype='npy')
+        src_cloud = random_select_points(src_cloud, m=self.npts)
         return ref_cloud, src_cloud, R, t
 
     def __len__(self):
